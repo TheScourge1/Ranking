@@ -12,7 +12,6 @@ public class Player extends BaseTournamentEntity {
     public Long playerId;
     @Enumerated(EnumType.STRING)
     public Gender sex;
-
     public String firstName;
     @Column(name="name", nullable=false)
     public String lastName;
