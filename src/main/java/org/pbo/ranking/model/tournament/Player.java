@@ -7,10 +7,9 @@ import javax.validation.constraints.Pattern;
 @Table(name="player")
 public class Player extends BaseTournamentEntity {
 
-    public enum Gender {M,F}; 
+    public enum Gender {M,F};
 
     public Long playerId;
-
     @Enumerated(EnumType.STRING)
     public Gender sex;
 
