@@ -39,6 +39,14 @@ public abstract class BaseTournamentEntity implements Serializable,BaseEntity {
         return lastUpdateDate;
     }
 
+    public void BaseTournamentEnity(){}
+
+    public void BaseTournamentEntity(Long id)
+    {
+        this.id = id;
+    }
+
+
     /**
      * Some logic for auto logging insert/updates in db. All tables must contain to the specified fields.
      */
