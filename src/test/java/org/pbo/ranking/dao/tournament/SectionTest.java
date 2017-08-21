@@ -16,6 +16,7 @@ public class SectionTest extends BaseTournamentDaoTest{
 
     @Inject
     SectionDAO sectionDAO;
+    @Inject
     TournamentDAO tournamentDAO;
 
 

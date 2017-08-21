@@ -11,7 +11,6 @@ public class Section extends BaseTournamentEntity {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name="tournament_id")
     private Tournament tournament;
 
     @Column(name="url")
