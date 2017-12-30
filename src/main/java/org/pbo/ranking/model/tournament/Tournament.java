@@ -2,18 +2,36 @@ package org.pbo.ranking.model.tournament;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="tournament")
 public class Tournament extends BaseTournamentEntity {
 
+    public static enum CompetitionType { TOURNAMENT, COMPETITION};
 
     @Column(name="name")
     String name;
-    @Column(name="url")
-    String url;
+    @Column(name="toernooinl_id")
+    String toernooinl_id;
     @Column(name="start_dat")
     Date startDate;
+
+    @Convert(converter = CompetitionTypeConverter.class)
+    @Column(name="type")
+    CompetitionType competitionType;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "tournament")
+    @OrderBy("sortOrder asc")
+    List<Event> eventList;
+
+    public CompetitionType getCompetitionType() {
+        return competitionType;
+    }
+
+    public void setCompetitionType(CompetitionType competitionType) {
+        this.competitionType = competitionType;
+    }
 
     public String getName() {
         return name;
@@ -23,12 +41,12 @@ public class Tournament extends BaseTournamentEntity {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getToernooinl_id() {
+        return toernooinl_id;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setToernooinl_id(String url) {
+        this.toernooinl_id = url;
     }
 
     public Date getStartDate() {
@@ -37,6 +55,14 @@ public class Tournament extends BaseTournamentEntity {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+    }
+
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
     }
 
     @Override
@@ -59,5 +85,33 @@ public class Tournament extends BaseTournamentEntity {
         if(name != null)
             return (name +  "("+this.getId()+")");
         else return super.toString();
+    }
+
+    @Converter
+    public static class CompetitionTypeConverter implements AttributeConverter<CompetitionType, String> {
+
+        @Override
+        public String convertToDatabaseColumn(CompetitionType attribute) {
+            switch (attribute) {
+                case TOURNAMENT:
+                    return "T";
+                case COMPETITION:
+                    return "C";
+                default:
+                    throw new IllegalArgumentException("CompetitionType not mapped to db attribute" + attribute);
+            }
+        }
+
+        @Override
+        public CompetitionType convertToEntityAttribute(String dbData) {
+            switch (dbData) {
+                case "T":
+                    return CompetitionType.TOURNAMENT;
+                case "C":
+                    return CompetitionType.COMPETITION;
+                default:
+                    throw new IllegalArgumentException("Unknown competitiontype found in DB (expect T or C)" + dbData);
+            }
+        }
     }
 }
