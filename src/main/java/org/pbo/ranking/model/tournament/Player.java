@@ -9,10 +9,16 @@ public class Player extends BaseTournamentEntity {
 
     public enum Gender {M,F};
 
+    @Column(name="playerid")
     public Long playerId;
+    @Column(name="profile_id")
+    public String profileId;
     @Enumerated(EnumType.STRING)
     public Gender sex;
+
+    @Column(name="firstname")
     public String firstName;
+
     @Column(name="name", nullable=false)
     public String lastName;
 
@@ -48,16 +54,25 @@ public class Player extends BaseTournamentEntity {
         this.lastName = lastName;
     }
 
+    public String getProfileId() {
+        return profileId;
+    }
 
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
+    }
 
     @Override
     public boolean equals(Object o) {
 
-        return this.basicEqualsCheck(o) || playerId.equals(((Player)o).playerId);
+        return this.basicEqualsCheck(o) || (playerId != null && ((Player)o).playerId != null && playerId.equals(((Player)o).playerId))
+                || (profileId != null && ((Player)o).profileId != null && profileId.equals(((Player)o).profileId));
     }
 
     public int hashCode() {
-        return playerId.hashCode();
+        if(playerId != null && !playerId.equals("")) return playerId.hashCode();
+        else if(profileId != null & ! profileId.equals("")) return profileId.hashCode();
+        else return lastName.hashCode() +31 * firstName.hashCode();
     }
 
     @Override

@@ -20,7 +20,7 @@ public class TournamentTest extends BaseTournamentDaoTest{
     TournamentDAO tournamentDAO;
     @Inject
     EventDAO eventDAO;
-
+// jeugdcup buggenhout as example: http://badmintonvlaanderen.toernooi.nl/sport/tournament.aspx?id=2EE16507-FBD1-4124-A79E-0E90BD7902E4
 
     @Test
     public void testCreateTournament() throws RankingDAOException

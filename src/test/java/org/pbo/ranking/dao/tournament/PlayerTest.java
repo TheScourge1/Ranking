@@ -26,6 +26,7 @@ public class PlayerTest extends BaseTournamentDaoTest{
         p.setLastName("Tourné");
         p.setPlayerId(5000001L);
         p.setSex(Player.Gender.M);
+        p.setProfileId("0FD41B9F-C08C-425A-93FB-A8338EBA7A32");
 
         playerDAO.persist(p);
 

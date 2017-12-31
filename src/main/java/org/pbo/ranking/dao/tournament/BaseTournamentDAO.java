@@ -27,6 +27,11 @@ public class BaseTournamentDAO<T extends BaseTournamentEntity> {
         return result;
     }
 
+    public T find(long id,Class clazz) {
+          T result = (T)em.find(clazz, id);
+        return result;
+    }
+
     public void persist(T entity) throws RankingDAOException {
         try{
                 em.persist(entity);
